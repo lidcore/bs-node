@@ -1,0 +1,20 @@
+{
+  "name": "@lidcore/bs-node",
+  "sources": [
+    { 
+      "dir": "src",
+      "public": ["Node"]
+    }, {
+      "dir": "src/modules",
+      "public": []
+    }
+  ],
+  "package-specs": {
+    "module": "commonjs"
+  },
+  "bsc-flags": [
+    "-bs-super-errors"
+  ],
+  "bs-dependencies" : ["bs-callback"],
+  "refmt": 3,
+}

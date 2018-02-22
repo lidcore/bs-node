@@ -1,0 +1,33 @@
+{
+  "name": "@lidcore/bs-node",
+  "version": "0.1.0",
+  "description": "Very partial Bindings to node for bucklescript applications",
+  "main": "lib/js/src/node.js",
+  "scripts": {
+    "build": "bsb -make-world",
+    "watch": "bsb -make-world -w",
+    "clean": "bsb -clean-world"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lidcore/bs-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lidcore/bs-node/issues"
+  },
+  "keywords": [
+    "bucklescript",
+    "node"
+  ],
+  "peerDependencies": {
+    "bs-callback": "^1.0.5",
+    "bs-platform": "^2.1.0"
+  },
+  "devDependencies": {
+    "bs-callback": "^1.0.5",
+    "bs-platform": "^2.1.0"
+  },
+  "author": "Lidcore IT <it@lidcore.com>",
+  "license": "BSD-2-Clause",
+  "homepage": "https://github.com/lidcore/bs-node"
+}
