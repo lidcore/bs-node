@@ -8,7 +8,7 @@ external createReadStream  : string Js.nullable -> stream_params -> Stream.reada
 external createWriteStream : string Js.nullable -> stream_params -> Stream.writable = "" [@@bs.module "fs"]
 external existsSync : string -> Js.boolean = "" [@@bs.module "fs"]
 external unlinkSync : string -> unit = "" [@@bs.module "fs"]
-external read : int -> Buffer.t -> int -> int -> int -> (exn Js.Nullable.t -> int -> Node_buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
+external read : int -> Buffer.t -> int -> int -> int -> (exn Js.Nullable.t -> int -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
 external readFile : string -> Buffer.t Callback.callback -> unit = "" [@@bs.module "fs"]
 external readFileSync : string -> Buffer.t = "" [@@bs.module "fs"]
 external writeFile : string -> string -> unit Callback.callback -> unit = "" [@@bs.module "fs"]
