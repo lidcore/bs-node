@@ -4,8 +4,8 @@ type stream_params
 external stream_params : ?fd:int -> ?autoClose:Js.boolean -> unit -> stream_params = "" [@@bs.obj]
 
 external copyFileSync : string -> string -> unit = "" [@@bs.module "fs"]
-external createReadStream  : string Js.nullable -> stream_params -> Stream.readable = "" [@@bs.module "fs"]
-external createWriteStream : string Js.nullable -> stream_params -> Stream.writable = "" [@@bs.module "fs"]
+external createReadStream  : string Js.nullable -> stream_params -> Node_stream.readable = "" [@@bs.module "fs"]
+external createWriteStream : string Js.nullable -> stream_params -> Node_stream.writable = "" [@@bs.module "fs"]
 external existsSync : string -> Js.boolean = "" [@@bs.module "fs"]
 external unlinkSync : string -> unit = "" [@@bs.module "fs"]
 external read : int -> Node_buffer.t -> int -> int -> int -> (exn Js.Nullable.t -> int -> Node_buffer.t -> unit) -> unit = "" [@@bs.module "fs"]

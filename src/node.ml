@@ -15,5 +15,5 @@ module Os = struct
 end
 
 module Stream = struct
-  include Stream
+  include Node_stream
 end

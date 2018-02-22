@@ -1,6 +1,6 @@
 val copyFileSync : string -> string -> unit
-val createWriteStream : ?path:string -> ?fd:int -> ?autoClose:bool -> unit -> Stream.writable
-val createReadStream : ?path:string -> ?fd:int -> ?autoClose:bool -> unit -> Stream.readable
+val createWriteStream : ?path:string -> ?fd:int -> ?autoClose:bool -> unit -> Node_stream.writable
+val createReadStream : ?path:string -> ?fd:int -> ?autoClose:bool -> unit -> Node_stream.readable
 val existsSync : string -> bool
 val openFile : string -> string -> int Callback.t
 val close : int -> unit Callback.t

@@ -15,5 +15,5 @@ module Os : sig
 end
 
 module Stream : sig
-  include module type of Stream
+  include module type of Node_stream
 end
