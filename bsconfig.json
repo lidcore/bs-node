@@ -1,14 +1,7 @@
 {
   "name": "@lidcore/bs-node",
-  "sources": [
-    { 
-      "dir": "src",
-      "public": ["Node"]
-    }, {
-      "dir": "src/modules",
-      "public": []
-    }
-  ],
+  "namespace": true,
+  "sources": ["src"],
   "package-specs": {
     "module": "commonjs"
   },

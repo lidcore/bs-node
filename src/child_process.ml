@@ -6,7 +6,7 @@ let exec cmd cb =
   exec cmd (fun [@bs] err stdout stderr ->
     cb err (stdout, stderr) [@bs])
 
-external execSync : string -> Node_buffer.t = "" [@@bs.module "child_process"]
+external execSync : string -> Buffer.t = "" [@@bs.module "child_process"]
 
 let execSync cmd =
-  Node_buffer.toString (execSync cmd) 
+  Buffer.toString (execSync cmd) 

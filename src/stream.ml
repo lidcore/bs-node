@@ -47,7 +47,7 @@ let read str = fun cb ->
        ignore(Js.Array.push data chunks)));
    on str (`End (fun () ->
      if not !errored then
-       let data = Node_buffer.toString
-         (Node_buffer.concat chunks)
+       let data = Buffer.toString
+         (Buffer.concat chunks)
        in
        Callback.return data cb))
