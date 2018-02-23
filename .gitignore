@@ -19,7 +19,7 @@
 *.annot
 *.cmj
 *.bak
-/lib/
+/lib/bs
 *.mlast
 *.mliast
 .vscode
