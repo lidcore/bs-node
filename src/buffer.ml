@@ -11,6 +11,6 @@ let alloc = alloc buffer_class
 external concat : buffer_class -> t array -> t = "" [@@bs.send]
 let concat = concat buffer_class
 
-external from : buffer_class -> string -> string option -> t = "" [@@bs.send]
+external from : buffer_class -> string -> string Js.Nullable.t -> t = "" [@@bs.send]
 let from ?encoding data =
-  from buffer_class data encoding
+  from buffer_class data (Js.Nullable.from_opt encoding)
