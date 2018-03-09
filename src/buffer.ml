@@ -13,4 +13,4 @@ let concat = concat buffer_class
 
 external from : buffer_class -> string -> string Js.Nullable.t -> t = "" [@@bs.send]
 let from ?encoding data =
-  from buffer_class data (Js.Nullable.from_opt encoding)
+  from buffer_class data (Js.Nullable.fromOption encoding)
