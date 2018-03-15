@@ -6,7 +6,6 @@ type signal = [
   | `SIGHUP
   | `SIGBREAK
   | `SIGWINCH
-  | `SIGKILL
   | `SIGSTOP
   | `SIGBUS
   | `SIGFPE
@@ -21,7 +20,6 @@ let string_of_signal = function
   | `SIGHUP -> "SIGHUP"
   | `SIGBREAK -> "SIGBREAK"
   | `SIGWINCH -> "SIGWINCH"
-  | `SIGKILL -> "SIGKILL"
   | `SIGSTOP -> "SIGSTOP"
   | `SIGBUS -> "SIGBUS"
   | `SIGFPE -> "SIGFPE"

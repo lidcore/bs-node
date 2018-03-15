@@ -6,12 +6,10 @@ type signal = [
   | `SIGHUP
   | `SIGBREAK
   | `SIGWINCH
-  | `SIGKILL
   | `SIGSTOP
   | `SIGBUS
   | `SIGFPE
   | `SIGSEV
-  | `SIGKILL
 ]
 
 val on : signal -> (unit -> unit) -> unit
