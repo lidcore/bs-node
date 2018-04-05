@@ -9,3 +9,4 @@ val read : int -> Buffer.t -> int -> int -> int -> (int*Buffer.t) Callback.t
 val readFile : string -> string Callback.t
 val readFileSync : string -> string
 val writeFile : string -> string -> unit Callback.t
+val rmdirSync : string -> unit
