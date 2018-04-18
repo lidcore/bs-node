@@ -3,7 +3,7 @@
 
 var Fs = require("fs");
 var Curry = require("bs-platform/lib/js/curry.js");
-var Callback = require("bs-callback/lib/js/src/callback.js");
+var BsCallback = require("bs-callback/src/bsCallback.js");
 var Js_boolean = require("bs-platform/lib/js/js_boolean.js");
 var Buffer$LidcoreBsNode = require("./buffer.js");
 
@@ -56,13 +56,13 @@ function existsSync(path) {
 
 function readFile(path) {
   return (function (param) {
-      return Callback.$great$great((function (param) {
+      return BsCallback.$great$great((function (param) {
                     Fs.readFile(path, param);
                     return /* () */0;
                   }), (function (data) {
                     var partial_arg = Buffer$LidcoreBsNode.toString(data);
                     return (function (param) {
-                        return Callback.$$return(partial_arg, param);
+                        return BsCallback.$$return(partial_arg, param);
                       });
                   }), param);
     });

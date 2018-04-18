@@ -3,7 +3,8 @@
   "namespace": true,
   "sources": ["src"],
   "package-specs": {
-    "module": "commonjs"
+    "module": "commonjs",
+    "in-source": true
   },
   "bsc-flags": [
     "-bs-super-errors"

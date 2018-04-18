@@ -20,11 +20,11 @@
     "node"
   ],
   "peerDependencies": {
-    "bs-callback": "^1.0.10",
+    "bs-callback": "^1.2.1",
     "bs-platform": "^2.2.2"
   },
   "devDependencies": {
-    "bs-callback": "^1.0.10",
+    "bs-callback": "^1.2.1",
     "bs-platform": "^2.2.2"
   },
   "author": "Lidcore IT <it@lidcore.com>",

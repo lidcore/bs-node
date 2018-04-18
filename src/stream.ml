@@ -39,7 +39,7 @@ let read str = fun cb ->
      if not !errored then
       begin
        errored := true;
-       Callback.fail exn cb
+       BsCallback.fail exn cb
       end
    ));
    on str (`Data (fun data ->
@@ -50,4 +50,4 @@ let read str = fun cb ->
        let data = Buffer.toString
          (Buffer.concat chunks)
        in
-       Callback.return data cb))
+       BsCallback.return data cb))

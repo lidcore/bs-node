@@ -1,2 +1,2 @@
-val exec : string -> (string*string) Callback.t
+val exec : string -> (string*string) BsCallback.t
 val execSync : string -> string

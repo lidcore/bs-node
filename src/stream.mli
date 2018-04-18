@@ -20,4 +20,4 @@ type events = [write_events | read_events]
 
 val pipe : readable -> writable -> unit
 val on : ([< events] as 'a) t -> 'a -> unit
-val read : readable -> string Callback.t
+val read : readable -> string BsCallback.t

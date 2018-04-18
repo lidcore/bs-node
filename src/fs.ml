@@ -1,4 +1,4 @@
-open Callback
+open BsCallback
 
 type stream_params
 external stream_params : ?fd:int -> ?autoClose:Js.boolean -> unit -> stream_params = "" [@@bs.obj]
@@ -10,12 +10,12 @@ external existsSync : string -> Js.boolean = "" [@@bs.module "fs"]
 external unlinkSync : string -> unit = "" [@@bs.module "fs"]
 external rmdirSync : string -> unit = "" [@@bs.module "fs"]
 external read : int -> Buffer.t -> int -> int -> int -> (exn Js.Nullable.t -> int -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
-external readFile : string -> Buffer.t Callback.callback -> unit = "" [@@bs.module "fs"]
+external readFile : string -> Buffer.t BsCallback.callback -> unit = "" [@@bs.module "fs"]
 external readFileSync : string -> Buffer.t = "" [@@bs.module "fs"]
-external writeFile : string -> string -> unit Callback.callback -> unit = "" [@@bs.module "fs"]
+external writeFile : string -> string -> unit BsCallback.callback -> unit = "" [@@bs.module "fs"]
 (* open is a keywork in OCaml.. *)
-external openFile : string -> string -> int Callback.callback -> unit = "open" [@@bs.module "fs"]
-external close : int -> unit Callback.callback -> unit = "" [@@bs.module "fs"]
+external openFile : string -> string -> int BsCallback.callback -> unit = "open" [@@bs.module "fs"]
+external close : int -> unit BsCallback.callback -> unit = "" [@@bs.module "fs"]
 
 let read fd buffer offset length position cb =
   read fd buffer offset length position (fun err read buffer ->
@@ -42,6 +42,6 @@ let createWriteStream = createStream createWriteStream
 let existsSync path = Js.to_bool (existsSync path)
 let readFile path =
   readFile path >> fun data ->
-    Callback.return (Buffer.toString data)
+    BsCallback.return (Buffer.toString data)
 let readFileSync path =
   Buffer.toString (readFileSync path)
