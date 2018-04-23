@@ -1,12 +1,12 @@
 open BsCallback
 
 type stream_params
-external stream_params : ?fd:int -> ?autoClose:Js.boolean -> unit -> stream_params = "" [@@bs.obj]
+external stream_params : ?fd:int -> ?autoClose:bool -> unit -> stream_params = "" [@@bs.obj]
 
 external copyFileSync : string -> string -> unit = "" [@@bs.module "fs"]
 external createReadStream  : string Js.nullable -> stream_params -> Stream.readable = "" [@@bs.module "fs"]
 external createWriteStream : string Js.nullable -> stream_params -> Stream.writable = "" [@@bs.module "fs"]
-external existsSync : string -> Js.boolean = "" [@@bs.module "fs"]
+external existsSync : string -> bool = "" [@@bs.module "fs"]
 external unlinkSync : string -> unit = "" [@@bs.module "fs"]
 external rmdirSync : string -> unit = "" [@@bs.module "fs"]
 external read : int -> Buffer.t -> int -> int -> int -> (exn Js.Nullable.t -> int -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
@@ -22,11 +22,6 @@ let read fd buffer offset length position cb =
     cb err (read,buffer) [@bs])
 
 let createStream fn ?path ?fd ?autoClose () =
-  let autoClose =
-    match autoClose with
-      | Some b -> Some (Js.Boolean.to_js_boolean b)
-      | None -> None
-  in
   let params =
     stream_params ?fd ?autoClose ()
   in
@@ -39,7 +34,6 @@ let createStream fn ?path ?fd ?autoClose () =
 
 let createReadStream = createStream createReadStream
 let createWriteStream = createStream createWriteStream
-let existsSync path = Js.to_bool (existsSync path)
 let readFile path =
   readFile path >> fun data ->
     BsCallback.return (Buffer.toString data)
