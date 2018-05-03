@@ -30,7 +30,7 @@ external createWriteStream : string Js.nullable -> stream_params -> Stream.writa
 external existsSync : string -> bool = "" [@@bs.module "fs"]
 external unlinkSync : string -> unit = "" [@@bs.module "fs"]
 external rmdirSync : string -> unit = "" [@@bs.module "fs"]
-external read : int -> Buffer.t -> float -> float -> float -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
+external read : int -> Buffer.t -> float -> float -> float Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
 external readFile : string -> Buffer.t BsCallback.callback -> unit = "" [@@bs.module "fs"]
 external readFileSync : string -> Buffer.t = "" [@@bs.module "fs"]
 external writeFile : string -> string -> unit BsCallback.callback -> unit = "" [@@bs.module "fs"]
@@ -38,7 +38,10 @@ external writeFile : string -> string -> unit BsCallback.callback -> unit = "" [
 external openFile : string -> string -> int BsCallback.callback -> unit = "open" [@@bs.module "fs"]
 external close : int -> unit BsCallback.callback -> unit = "" [@@bs.module "fs"]
 
-let read fd buffer offset length position cb =
+let read ?position fd buffer offset length cb =
+  let position =
+    Js.Nullable.fromOption position
+  in
   read fd buffer offset length position (fun err read buffer ->
     cb err (read,buffer) [@bs])
 

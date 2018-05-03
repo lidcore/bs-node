@@ -4,10 +4,12 @@
 var Fs = require("fs");
 var Curry = require("bs-platform/lib/js/curry.js");
 var BsCallback = require("bs-callback/src/bsCallback.js");
+var Js_null_undefined = require("bs-platform/lib/js/js_null_undefined.js");
 var Buffer$LidcoreBsNode = require("./buffer.js");
 
-function read(fd, buffer, offset, length, position, cb) {
-  Fs.read(fd, buffer, offset, length, position, (function (err, read, buffer) {
+function read(position, fd, buffer, offset, length, cb) {
+  var position$1 = Js_null_undefined.fromOption(position);
+  Fs.read(fd, buffer, offset, length, position$1, (function (err, read, buffer) {
           return cb(err, /* tuple */[
                       read,
                       buffer
