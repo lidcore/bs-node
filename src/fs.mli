@@ -1,3 +1,24 @@
+type stats = <
+  dev:         float;
+  ino:         float;
+  mode:        float;
+  nlink:       float;
+  uid:         float;
+  gid:         float;
+  rdev:        float;
+  size:        float;
+  blksize:     float;
+  blocks:      float;
+  atimeMs:     float;
+  mtimeMs:     float;
+  ctimeMs:     float;
+  birthtimeMs: float;
+  atime:       Js.Date.t;
+  mtime:       Js.Date.t;
+  ctime:       Js.Date.t;
+  birthtime:   Js.Date.t;
+> Js.t
+
 val copyFileSync : string -> string -> unit
 val createWriteStream : ?path:string -> ?fd:int -> ?autoClose:bool -> unit -> Stream.writable
 val createReadStream : ?path:string -> ?fd:int -> ?autoClose:bool -> unit -> Stream.readable
@@ -10,3 +31,4 @@ val readFile : string -> string BsCallback.t
 val readFileSync : string -> string
 val writeFile : string -> string -> unit BsCallback.t
 val rmdirSync : string -> unit
+val statSync : string -> stats

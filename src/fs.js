@@ -100,6 +100,10 @@ function rmdirSync(prim) {
   return /* () */0;
 }
 
+function statSync(prim) {
+  return Fs.statSync(prim);
+}
+
 exports.copyFileSync = copyFileSync;
 exports.createWriteStream = createWriteStream;
 exports.createReadStream = createReadStream;
@@ -112,4 +116,5 @@ exports.readFile = readFile;
 exports.readFileSync = readFileSync;
 exports.writeFile = writeFile;
 exports.rmdirSync = rmdirSync;
+exports.statSync = statSync;
 /* fs Not a pure module */

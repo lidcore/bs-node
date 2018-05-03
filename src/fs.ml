@@ -1,5 +1,26 @@
 open BsCallback
 
+type stats = <
+  dev:         float;
+  ino:         float;
+  mode:        float;
+  nlink:       float;
+  uid:         float;
+  gid:         float;
+  rdev:        float;
+  size:        float;
+  blksize:     float;
+  blocks:      float;
+  atimeMs:     float;
+  mtimeMs:     float;
+  ctimeMs:     float;
+  birthtimeMs: float;
+  atime:       Js.Date.t;
+  mtime:       Js.Date.t;
+  ctime:       Js.Date.t;
+  birthtime:   Js.Date.t;
+> Js.t
+
 type stream_params
 external stream_params : ?fd:int -> ?autoClose:bool -> unit -> stream_params = "" [@@bs.obj]
 
@@ -39,3 +60,5 @@ let readFile path =
     BsCallback.return (Buffer.toString data)
 let readFileSync path =
   Buffer.toString (readFileSync path)
+
+external statSync : string -> stats = "" [@@bs.module "fs"]
