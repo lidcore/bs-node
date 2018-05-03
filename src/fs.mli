@@ -26,7 +26,7 @@ val existsSync : string -> bool
 val openFile : string -> string -> int BsCallback.t
 val close : int -> unit BsCallback.t
 val unlinkSync : string -> unit 
-val read : int -> Buffer.t -> int -> int -> int -> (int*Buffer.t) BsCallback.t
+val read : int -> Buffer.t -> float -> float -> float -> (float*Buffer.t) BsCallback.t
 val readFile : string -> string BsCallback.t
 val readFileSync : string -> string
 val writeFile : string -> string -> unit BsCallback.t

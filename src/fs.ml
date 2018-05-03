@@ -30,7 +30,7 @@ external createWriteStream : string Js.nullable -> stream_params -> Stream.writa
 external existsSync : string -> bool = "" [@@bs.module "fs"]
 external unlinkSync : string -> unit = "" [@@bs.module "fs"]
 external rmdirSync : string -> unit = "" [@@bs.module "fs"]
-external read : int -> Buffer.t -> int -> int -> int -> (exn Js.Nullable.t -> int -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
+external read : int -> Buffer.t -> float -> float -> float -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
 external readFile : string -> Buffer.t BsCallback.callback -> unit = "" [@@bs.module "fs"]
 external readFileSync : string -> Buffer.t = "" [@@bs.module "fs"]
 external writeFile : string -> string -> unit BsCallback.callback -> unit = "" [@@bs.module "fs"]
