@@ -23,8 +23,14 @@ function from(encoding, data) {
   return Buffer.from(data, Js_null_undefined.fromOption(encoding));
 }
 
+var get = function (buf,idx){return buf[idx];};
+
+var set = function (buf,idx,el){buf[idx] = el;};
+
 exports.alloc = alloc;
 exports.concat = concat;
 exports.from = from;
 exports.toString = toString;
+exports.get = get;
+exports.set = set;
 /* partial_arg Not a pure module */

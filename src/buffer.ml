@@ -14,3 +14,11 @@ let concat = concat buffer_class
 external from : buffer_class -> string -> string Js.Nullable.t -> t = "" [@@bs.send]
 let from ?encoding data =
   from buffer_class data (Js.Nullable.fromOption encoding)
+
+let get : t -> int -> int = [%raw fun buf idx ->
+  "return buf[idx];"
+]
+
+let set : t -> int -> int -> unit = [%raw fun buf idx el ->
+  "buf[idx] = el;"
+]
