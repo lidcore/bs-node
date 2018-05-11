@@ -33,7 +33,7 @@ external rmdirSync : string -> unit = "" [@@bs.module "fs"]
 external read : int -> Buffer.t -> float -> float -> float Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
 external readFile : string -> Buffer.t BsCallback.callback -> unit = "" [@@bs.module "fs"]
 external readFileSync : string -> Buffer.t = "" [@@bs.module "fs"]
-external write : int -> string -> float Js.Nullable.t -> string Js.Nullable.t -> (exn Js.Nullable.t -> float -> string -> unit) -> unit = "" [@@bs.module "fs"]
+external write : int -> Buffer.t -> float Js.Nullable.t -> string Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
 external writeFile : string -> string -> unit BsCallback.callback -> unit = "" [@@bs.module "fs"]
 (* open is a keywork in OCaml.. *)
 external openFile : string -> string -> int BsCallback.callback -> unit = "open" [@@bs.module "fs"]
