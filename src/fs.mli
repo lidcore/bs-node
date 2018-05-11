@@ -29,7 +29,7 @@ val unlinkSync : string -> unit
 val read : ?position:float -> int -> Buffer.t -> float -> float -> (float*Buffer.t) BsCallback.t
 val readFile : string -> string BsCallback.t
 val readFileSync : string -> string
-val write : ?position:float -> ?encoding:string -> int -> Buffer.t -> (float*Buffer.t) BsCallback.t
+val write : ?position:float -> ?encoding:string -> int -> Buffer.t -> float -> float -> (float*Buffer.t) BsCallback.t
 val writeFile : string -> string -> unit BsCallback.t
 val rmdirSync : string -> unit
 val statSync : string -> stats

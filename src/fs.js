@@ -18,10 +18,10 @@ function read(position, fd, buffer, offset, length, cb) {
   return /* () */0;
 }
 
-function write(position, encoding, fd, data, cb) {
+function write(position, encoding, fd, data, offset, length, cb) {
   var position$1 = Js_null_undefined.fromOption(position);
   var encoding$1 = Js_null_undefined.fromOption(encoding);
-  Fs.write(fd, data, position$1, encoding$1, (function (err, written, str) {
+  Fs.write(fd, data, offset, length, position$1, encoding$1, (function (err, written, str) {
           return cb(err, /* tuple */[
                       written,
                       str
