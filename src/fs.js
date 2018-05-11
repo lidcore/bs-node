@@ -18,6 +18,18 @@ function read(position, fd, buffer, offset, length, cb) {
   return /* () */0;
 }
 
+function write(position, encoding, fd, data, cb) {
+  var position$1 = Js_null_undefined.fromOption(position);
+  var encoding$1 = Js_null_undefined.fromOption(encoding);
+  Fs.write(fd, data, position$1, encoding$1, (function (err, written, str) {
+          return cb(err, /* tuple */[
+                      written,
+                      str
+                    ]);
+        }));
+  return /* () */0;
+}
+
 function createStream(fn, path, fd, autoClose, _) {
   var tmp = { };
   if (fd) {
@@ -116,6 +128,7 @@ exports.unlinkSync = unlinkSync;
 exports.read = read;
 exports.readFile = readFile;
 exports.readFileSync = readFileSync;
+exports.write = write;
 exports.writeFile = writeFile;
 exports.rmdirSync = rmdirSync;
 exports.statSync = statSync;
