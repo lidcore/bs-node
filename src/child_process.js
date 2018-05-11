@@ -15,7 +15,7 @@ function exec(cmd, cb) {
 }
 
 function execSync(cmd) {
-  return Buffer$LidcoreBsNode.toString(Child_process.execSync(cmd));
+  return Buffer$LidcoreBsNode.toString(/* None */0, /* None */0, /* None */0, Child_process.execSync(cmd));
 }
 
 exports.exec = exec;

@@ -75,7 +75,7 @@ function read(str, cb) {
                   if (errored[0]) {
                     return 0;
                   } else {
-                    var data = Buffer$LidcoreBsNode.toString(Buffer$LidcoreBsNode.concat(chunks));
+                    var data = Buffer$LidcoreBsNode.toString(/* None */0, /* None */0, /* None */0, Buffer$LidcoreBsNode.concat(chunks));
                     return BsCallback.$$return(data, cb);
                   }
                 })

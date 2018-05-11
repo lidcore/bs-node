@@ -71,7 +71,7 @@ function readFile(path) {
                     Fs.readFile(path, param);
                     return /* () */0;
                   }), (function (data) {
-                    var partial_arg = Buffer$LidcoreBsNode.toString(data);
+                    var partial_arg = Buffer$LidcoreBsNode.toString(/* None */0, /* None */0, /* None */0, data);
                     return (function (param) {
                         return BsCallback.$$return(partial_arg, param);
                       });
@@ -80,7 +80,7 @@ function readFile(path) {
 }
 
 function readFileSync(path) {
-  return Buffer$LidcoreBsNode.toString(Fs.readFileSync(path));
+  return Buffer$LidcoreBsNode.toString(/* None */0, /* None */0, /* None */0, Fs.readFileSync(path));
 }
 
 function copyFileSync(prim, prim$1) {

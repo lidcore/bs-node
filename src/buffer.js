@@ -3,8 +3,11 @@
 
 var Js_null_undefined = require("bs-platform/lib/js/js_null_undefined.js");
 
-function toString(buffer) {
-  return buffer.toString();
+function toString($staropt$star, $staropt$star$1, stop, buffer) {
+  var encoding = $staropt$star ? $staropt$star[0] : "utf8";
+  var start = $staropt$star$1 ? $staropt$star$1[0] : 0;
+  var stop$1 = stop ? stop[0] : buffer.length - start;
+  return buffer.toString(encoding, start, stop$1);
 }
 
 var partial_arg = Buffer;
