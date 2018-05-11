@@ -33,27 +33,34 @@ external rmdirSync : string -> unit = "" [@@bs.module "fs"]
 external read : int -> Buffer.t -> float -> float -> float Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
 external readFile : string -> Buffer.t BsCallback.callback -> unit = "" [@@bs.module "fs"]
 external readFileSync : string -> Buffer.t = "" [@@bs.module "fs"]
-external write : int -> Buffer.t -> float -> float -> float Js.Nullable.t -> string Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
+external write : int -> Buffer.t -> float -> float -> float Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
 external writeFile : string -> string -> unit BsCallback.callback -> unit = "" [@@bs.module "fs"]
 (* open is a keywork in OCaml.. *)
 external openFile : string -> string -> int BsCallback.callback -> unit = "open" [@@bs.module "fs"]
 external close : int -> unit BsCallback.callback -> unit = "" [@@bs.module "fs"]
 
-let read ?position fd buffer offset length cb =
+let read ?position ?(offset=0.) ?length fd buffer cb =
   let position =
     Js.Nullable.fromOption position
+  in
+  let length =
+    match length with
+      | Some len -> len
+      | None -> Buffer.length buffer -. offset
   in
   read fd buffer offset length position (fun err read buffer ->
     cb err (read,buffer) [@bs])
 
-let write ?position ?encoding fd data offset length cb =
+let write ?position ?(offset=0.) ?length fd buffer cb =
   let position =
     Js.Nullable.fromOption position
   in
-  let encoding =
-    Js.Nullable.fromOption encoding
+  let length =
+    match length with
+      | Some len -> len
+      | None -> Buffer.length buffer -. offset
   in
-  write fd data offset length position encoding (fun err written str ->
+  write fd buffer offset length position (fun err written str ->
     cb err (written,str) [@bs])
 
 let createStream fn ?path ?fd ?autoClose () =

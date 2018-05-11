@@ -7,9 +7,11 @@ var BsCallback = require("bs-callback/src/bsCallback.js");
 var Js_null_undefined = require("bs-platform/lib/js/js_null_undefined.js");
 var Buffer$LidcoreBsNode = require("./buffer.js");
 
-function read(position, fd, buffer, offset, length, cb) {
+function read(position, $staropt$star, length, fd, buffer, cb) {
+  var offset = $staropt$star ? $staropt$star[0] : 0;
   var position$1 = Js_null_undefined.fromOption(position);
-  Fs.read(fd, buffer, offset, length, position$1, (function (err, read, buffer) {
+  var length$1 = length ? length[0] : Buffer$LidcoreBsNode.length(buffer) - offset;
+  Fs.read(fd, buffer, offset, length$1, position$1, (function (err, read, buffer) {
           return cb(err, /* tuple */[
                       read,
                       buffer
@@ -18,10 +20,11 @@ function read(position, fd, buffer, offset, length, cb) {
   return /* () */0;
 }
 
-function write(position, encoding, fd, data, offset, length, cb) {
+function write(position, $staropt$star, length, fd, buffer, cb) {
+  var offset = $staropt$star ? $staropt$star[0] : 0;
   var position$1 = Js_null_undefined.fromOption(position);
-  var encoding$1 = Js_null_undefined.fromOption(encoding);
-  Fs.write(fd, data, offset, length, position$1, encoding$1, (function (err, written, str) {
+  var length$1 = length ? length[0] : Buffer$LidcoreBsNode.length(buffer) - offset;
+  Fs.write(fd, buffer, offset, length$1, position$1, (function (err, written, str) {
           return cb(err, /* tuple */[
                       written,
                       str
