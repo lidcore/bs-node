@@ -22,3 +22,5 @@ let get : t -> float -> int = [%raw fun buf idx ->
 let set : t -> float -> int -> unit = [%raw fun buf idx el ->
   "buf[idx] = el;"
 ]
+
+external length : t -> float = "" [@@bs.get]

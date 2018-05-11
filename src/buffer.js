@@ -27,8 +27,13 @@ var get = function (buf,idx){return buf[idx];};
 
 var set = function (buf,idx,el){buf[idx] = el;};
 
+function length(prim) {
+  return prim.length;
+}
+
 exports.alloc = alloc;
 exports.concat = concat;
+exports.length = length;
 exports.from = from;
 exports.toString = toString;
 exports.get = get;
