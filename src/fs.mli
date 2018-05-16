@@ -27,8 +27,8 @@ val openFile : string -> string -> int BsCallback.t
 val close : int -> unit BsCallback.t
 val unlinkSync : string -> unit 
 val read : ?position:float -> ?offset:float -> ?length:float -> int -> Buffer.t -> (float*Buffer.t) BsCallback.t
-val readFile : string -> string BsCallback.t
-val readFileSync : string -> string
+val readFile : string -> Buffer.t BsCallback.t
+val readFileSync : string -> Buffer.t
 val write : ?position:float -> ?offset:float -> ?length:float -> int -> Buffer.t -> (float*Buffer.t) BsCallback.t
 val writeFile : string -> string -> unit BsCallback.t
 val rmdirSync : string -> unit

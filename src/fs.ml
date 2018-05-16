@@ -1,5 +1,3 @@
-open BsCallback
-
 type stats = <
   dev:         float;
   ino:         float;
@@ -31,8 +29,14 @@ external existsSync : string -> bool = "" [@@bs.module "fs"]
 external unlinkSync : string -> unit = "" [@@bs.module "fs"]
 external rmdirSync : string -> unit = "" [@@bs.module "fs"]
 external read : int -> Buffer.t -> float -> float -> float Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
-external readFile : string -> Buffer.t BsCallback.callback -> unit = "" [@@bs.module "fs"]
-external readFileSync : string -> Buffer.t = "" [@@bs.module "fs"]
+
+type readFile_params = {
+  encoding: string [@bs.optional];
+  flag: string
+} [@@bs.deriving abstract]
+
+external readFile : string -> readFile_params -> Buffer.t BsCallback.callback -> unit = "" [@@bs.module "fs"]
+external readFileSync : string -> readFile_params -> Buffer.t = "" [@@bs.module "fs"]
 external write : int -> Buffer.t -> float -> float -> float Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
 external writeFile : string -> string -> unit BsCallback.callback -> unit = "" [@@bs.module "fs"]
 (* open is a keywork in OCaml.. *)
@@ -77,9 +81,8 @@ let createStream fn ?path ?fd ?autoClose () =
 let createReadStream = createStream createReadStream
 let createWriteStream = createStream createWriteStream
 let readFile path =
-  readFile path >> fun data ->
-    BsCallback.return (Buffer.toString data)
+  readFile path (readFile_params ~flag:"r" ())
 let readFileSync path =
-  Buffer.toString (readFileSync path)
+  readFileSync path (readFile_params ~flag:"r" ())
 
 external statSync : string -> stats = "" [@@bs.module "fs"]

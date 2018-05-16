@@ -3,7 +3,6 @@
 
 var Fs = require("fs");
 var Curry = require("bs-platform/lib/js/curry.js");
-var BsCallback = require("bs-callback/src/bsCallback.js");
 var Js_null_undefined = require("bs-platform/lib/js/js_null_undefined.js");
 var Buffer$LidcoreBsNode = require("./buffer.js");
 
@@ -66,21 +65,19 @@ function createWriteStream(param, param$1, param$2, param$3) {
 }
 
 function readFile(path) {
+  var partial_arg = {
+    flag: "r"
+  };
   return (function (param) {
-      return BsCallback.$great$great((function (param) {
-                    Fs.readFile(path, param);
-                    return /* () */0;
-                  }), (function (data) {
-                    var partial_arg = Buffer$LidcoreBsNode.toString(/* None */0, /* None */0, /* None */0, data);
-                    return (function (param) {
-                        return BsCallback.$$return(partial_arg, param);
-                      });
-                  }), param);
+      Fs.readFile(path, partial_arg, param);
+      return /* () */0;
     });
 }
 
 function readFileSync(path) {
-  return Buffer$LidcoreBsNode.toString(/* None */0, /* None */0, /* None */0, Fs.readFileSync(path));
+  return Fs.readFileSync(path, {
+              flag: "r"
+            });
 }
 
 function copyFileSync(prim, prim$1) {
