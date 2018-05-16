@@ -18,6 +18,19 @@ function execSync(cmd) {
   return Buffer$LidcoreBsNode.toString(/* None */0, /* None */0, /* None */0, Child_process.execSync(cmd));
 }
 
+function spawn(cmd, args) {
+  var stdio = /* array */[
+    "pipe",
+    "pipe",
+    "inherit"
+  ];
+  var params = {
+    stdio: stdio
+  };
+  return Child_process.spawn(cmd, args, params);
+}
+
 exports.exec = exec;
 exports.execSync = execSync;
+exports.spawn = spawn;
 /* child_process Not a pure module */
