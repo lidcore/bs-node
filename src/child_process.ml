@@ -17,7 +17,7 @@ type execFileOptions =
     env: string Js.Dict.t[@bs.optional ];
     encoding: string[@bs.optional ];
     timeout: int[@bs.optional ];
-    maxBuffer: int[@bs.optional ];
+    maxBuffer: float[@bs.optional ];
     killSignal: string[@bs.optional ];
     uid: int[@bs.optional ];
     gid: int[@bs.optional ];
