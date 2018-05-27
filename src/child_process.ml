@@ -28,6 +28,8 @@ type execFileOptions =
 external execFile :
   string -> string array -> execFileOptions -> 'a callback -> unit = "" [@@bs.module "child_process"]
 
-let execFile cmd args options cb =
+let execFile cmd args ?cwd ?env ?encoding ?timeout ?maxBuffer ?killSignal ?uid ?gid ?windowsHide ?windowsVerbatimOptions ?shell cb =
+  let options = execFileOptions ?cwd:cwd ?env:env ?encoding:encoding ?timeout:timeout ?maxBuffer:maxBuffer ?killSignal:killSignal ?uid: uid ?gid:gid ?windowsHide: windowsHide ?windowsVerbatimOptions:windowsVerbatimOptions ?shell:shell ()
+  in
   execFile cmd args options (fun [@bs] err stdout stderr ->
       cb err (stdout, stderr) [@bs])
