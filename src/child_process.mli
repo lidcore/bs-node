@@ -1,4 +1,6 @@
-val exec : string -> (string*string) BsCallback.t
+open BsAsyncMonad
+
+val exec : string -> (string*string) Callback.t
 val execSync : string -> string
 
 type spawned_io = <

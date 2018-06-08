@@ -1,3 +1,5 @@
+open BsAsyncMonad
+
 type stats = <
   dev:         float;
   ino:         float;
@@ -23,13 +25,13 @@ val copyFileSync : string -> string -> unit
 val createWriteStream : ?path:string -> ?fd:int -> ?autoClose:bool -> unit -> Stream.writable
 val createReadStream : ?path:string -> ?fd:int -> ?autoClose:bool -> unit -> Stream.readable
 val existsSync : string -> bool
-val openFile : string -> string -> int BsCallback.t
-val close : int -> unit BsCallback.t
+val openFile : string -> string -> int Callback.t
+val close : int -> unit Callback.t
 val unlinkSync : string -> unit 
-val read : ?position:float -> ?offset:float -> ?length:float -> int -> Buffer.t -> (float*Buffer.t) BsCallback.t
-val readFile : string -> Buffer.t BsCallback.t
+val read : ?position:float -> ?offset:float -> ?length:float -> int -> Buffer.t -> (float*Buffer.t) Callback.t
+val readFile : string -> Buffer.t Callback.t
 val readFileSync : string -> Buffer.t
-val write : ?position:float -> ?offset:float -> ?length:float -> int -> Buffer.t -> (float*Buffer.t) BsCallback.t
-val writeFile : string -> string -> unit BsCallback.t
+val write : ?position:float -> ?offset:float -> ?length:float -> int -> Buffer.t -> (float*Buffer.t) Callback.t
+val writeFile : string -> string -> unit Callback.t
 val rmdirSync : string -> unit
 val statSync : string -> stats

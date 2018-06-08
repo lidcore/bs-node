@@ -1,3 +1,5 @@
+open BsAsyncMonad
+
 type 'a t
 
 type write_events = [
@@ -39,7 +41,7 @@ let read str = fun cb ->
      if not !errored then
       begin
        errored := true;
-       BsCallback.fail exn cb
+       Callback.fail exn cb
       end
    ));
    on str (`Data (fun data ->
@@ -50,4 +52,4 @@ let read str = fun cb ->
        let data = Buffer.toString
          (Buffer.concat chunks)
        in
-       BsCallback.return data cb))
+       Callback.return data cb))

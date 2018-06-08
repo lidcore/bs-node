@@ -9,6 +9,6 @@
   "bsc-flags": [
     "-bs-super-errors"
   ],
-  "bs-dependencies" : ["bs-callback"],
+  "bs-dependencies" : ["bs-async-monad"],
   "refmt": 3,
 }

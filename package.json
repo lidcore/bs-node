@@ -20,12 +20,12 @@
     "node"
   ],
   "peerDependencies": {
-    "bs-callback": "^1.2.2",
-    "bs-platform": "^3.0.0"
+    "bs-async-monad": "^1.0.0",
+    "bs-platform": "^3.1.4"
   },
   "devDependencies": {
-    "bs-callback": "^1.2.2",
-    "bs-platform": "^3.0.0"
+    "bs-async-monad": "^1.0.0",
+    "bs-platform": "^3.1.4"
   },
   "author": "Lidcore IT <it@lidcore.com>",
   "license": "BSD-2-Clause",
