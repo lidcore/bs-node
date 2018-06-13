@@ -18,6 +18,51 @@ function execSync(cmd) {
   return Buffer$LidcoreBsNode.toString(/* None */0, /* None */0, /* None */0, Child_process.execSync(cmd));
 }
 
+function execFile(cwd, env, encoding, timeout, maxBuffer, killSignal, uid, gid, windowsHide, windowsVerbatimOptions, shell, cmd, args, cb) {
+  var tmp = { };
+  if (cwd) {
+    tmp.cwd = cwd[0];
+  }
+  if (env) {
+    tmp.env = env[0];
+  }
+  if (encoding) {
+    tmp.encoding = encoding[0];
+  }
+  if (timeout) {
+    tmp.timeout = timeout[0];
+  }
+  if (maxBuffer) {
+    tmp.maxBuffer = maxBuffer[0];
+  }
+  if (killSignal) {
+    tmp.killSignal = killSignal[0];
+  }
+  if (uid) {
+    tmp.uid = uid[0];
+  }
+  if (gid) {
+    tmp.gid = gid[0];
+  }
+  if (windowsHide) {
+    tmp.windowsHide = windowsHide[0];
+  }
+  if (windowsVerbatimOptions) {
+    tmp.windowsVerbatimOptions = windowsVerbatimOptions[0];
+  }
+  if (shell) {
+    tmp.shell = shell[0];
+  }
+  var options = tmp;
+  Child_process.execFile(cmd, args, options, (function (err, stdout, stderr) {
+          return cb(err, /* tuple */[
+                      stdout,
+                      stderr
+                    ]);
+        }));
+  return /* () */0;
+}
+
 function spawn(cmd, args) {
   var stdio = /* array */[
     "pipe",
@@ -32,5 +77,6 @@ function spawn(cmd, args) {
 
 exports.exec = exec;
 exports.execSync = execSync;
+exports.execFile = execFile;
 exports.spawn = spawn;
 /* child_process Not a pure module */
