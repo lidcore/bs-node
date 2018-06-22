@@ -32,3 +32,7 @@ let on = function
 external argv : string array = "" [@@bs.val] [@@bs.scope "process"]
 
 external exit : int -> 'a = "" [@@bs.val] [@@bs.scope "process"]
+
+external stdin : Stream.readable = "" [@@bs.val] [@@bs.scope "process"]
+external stderr : Stream.writable = "" [@@bs.val] [@@bs.scope "process"]
+external stdout : Stream.writable = "" [@@bs.val] [@@bs.scope "process"]

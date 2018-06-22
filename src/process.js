@@ -59,7 +59,16 @@ function exit(prim) {
   return process.exit(prim);
 }
 
+var stdin = process.stdin;
+
+var stderr = process.stderr;
+
+var stdout = process.stdout;
+
 exports.argv = argv;
 exports.exit = exit;
 exports.on = on;
+exports.stdin = stdin;
+exports.stderr = stderr;
+exports.stdout = stdout;
 /* argv Not a pure module */

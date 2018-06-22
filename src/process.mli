@@ -18,3 +18,7 @@ val argv : string array
 val exit : int -> 'a
 
 val on : event -> unit
+
+val stdin  : Stream.readable
+val stderr : Stream.writable
+val stdout : Stream.writable

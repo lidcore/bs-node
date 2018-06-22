@@ -1,12 +1,28 @@
 open BsAsyncMonad
 
+type t
+
+type 'a stdio_config = [
+  | `Pipe
+  | `Ignore
+  | `Inherit of 'a
+]
+
+type stdio = {
+  stdin:  Stream.readable stdio_config;
+  stdout: Stream.writable stdio_config;
+  stderr: Stream.writable stdio_config
+}
+
 val exec : string -> (string*string) Callback.t
 val execSync : string -> string
-val execFile : ?cwd:string -> ?env:string Js.Dict.t -> ?encoding:string -> ?timeout:int -> ?maxBuffer:float -> ?killSignal:string -> ?uid:int -> ?gid:int -> ?windowsHide:bool -> ?windowsVerbatimOptions:bool -> ?shell:string -> string -> string array -> (string*string) Callback.t
+val execFile : ?cwd:string -> ?env:string Js.Dict.t -> ?encoding:string -> ?timeout:int ->
+               ?maxBuffer:float -> ?killSignal:string -> ?uid:int -> ?gid:int ->
+               ?windowsHide:bool -> ?windowsVerbatimOptions:bool -> ?shell:string ->
+               string -> string array -> (string*string) Callback.t
 
-type spawned_io = <
-  stdin  : Stream.writable;
-  stdout : Stream.readable
-> Js.t
+val spawn : ?cwd:string -> ?env:string Js.Dict.t -> ?stdio:stdio -> string -> t
 
-val spawn : string -> string array -> spawned_io
+val stdin  : t -> Stream.writable
+val stdout : t -> Stream.readable
+val stderr : t -> Stream.readable

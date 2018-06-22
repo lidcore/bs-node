@@ -4,6 +4,26 @@
 var Child_process = require("child_process");
 var Buffer$LidcoreBsNode = require("./buffer.js");
 
+function stdioConfig(param) {
+  if (typeof param === "number") {
+    if (param >= 892411982) {
+      return "pipe";
+    } else {
+      return "ignore";
+    }
+  } else {
+    return param[1];
+  }
+}
+
+function stdioConfig$1(param) {
+  return /* array */[
+          stdioConfig(param[/* stdin */0]),
+          stdioConfig(param[/* stdout */1]),
+          stdioConfig(param[/* stderr */2])
+        ];
+}
+
 function exec(cmd, cb) {
   Child_process.exec(cmd, (function (err, stdout, stderr) {
           return cb(err, /* tuple */[
@@ -63,20 +83,39 @@ function execFile(cwd, env, encoding, timeout, maxBuffer, killSignal, uid, gid, 
   return /* () */0;
 }
 
-function spawn(cmd, args) {
-  var stdio = /* array */[
-    "pipe",
-    "pipe",
-    "inherit"
-  ];
-  var params = {
-    stdio: stdio
-  };
-  return Child_process.spawn(cmd, args, params);
+function spawn(cwd, env, stdio, cmd) {
+  var spawnStdio = stdio ? /* Some */[stdioConfig$1(stdio[0])] : /* None */0;
+  var tmp = { };
+  if (cwd) {
+    tmp.cwd = cwd[0];
+  }
+  if (env) {
+    tmp.env = env[0];
+  }
+  if (spawnStdio) {
+    tmp.stdio = spawnStdio[0];
+  }
+  var options = tmp;
+  return Child_process.spawn(cmd, options);
+}
+
+function stdin$1(prim) {
+  return stdin(prim);
+}
+
+function stdout$1(prim) {
+  return stdout(prim);
+}
+
+function stderr$1(prim) {
+  return stderr(prim);
 }
 
 exports.exec = exec;
 exports.execSync = execSync;
 exports.execFile = execFile;
 exports.spawn = spawn;
+exports.stdin = stdin$1;
+exports.stdout = stdout$1;
+exports.stderr = stderr$1;
 /* child_process Not a pure module */

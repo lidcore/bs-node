@@ -1,3 +1,25 @@
+type t
+
+type 'a stdio_config = [
+  | `Pipe
+  | `Ignore
+  | `Inherit of 'a
+]
+
+let stdioConfig = function
+  | `Pipe      -> "pipe"
+  | `Ignore    -> "ignore"
+  | `Inherit s -> Obj.magic s
+
+type stdio = {
+  stdin:  Stream.readable stdio_config;
+  stdout: Stream.writable stdio_config;
+  stderr: Stream.writable stdio_config
+}
+
+let stdioConfig {stdin;stdout;stderr} =
+  [|stdioConfig stdin; stdioConfig stdout; stdioConfig stderr|]
+
 type 'a callback = 'a -> string -> string -> unit [@bs]
 
 external exec : string -> 'a callback -> unit = "" [@@bs.module "child_process"]
@@ -11,45 +33,55 @@ external execSync : string -> Buffer.t = "" [@@bs.module "child_process"]
 let execSync cmd =
   Buffer.toString (execSync cmd)
 
-type execFileOptions =
-  {
-    cwd: string[@bs.optional ];
-    env: string Js.Dict.t[@bs.optional ];
-    encoding: string[@bs.optional ];
-    timeout: int[@bs.optional ];
-    maxBuffer: float[@bs.optional ];
-    killSignal: string[@bs.optional ];
-    uid: int[@bs.optional ];
-    gid: int[@bs.optional ];
-    windowsHide: bool[@bs.optional ];
-    windowsVerbatimOptions: bool[@bs.optional ];
-    shell: string[@bs.optional ];}[@@bs.deriving abstract]
+type execFileOptions = {
+    cwd: string [@bs.optional];
+    env: string Js.Dict.t [@bs.optional];
+    encoding: string [@bs.optional];
+    timeout: int [@bs.optional];
+    maxBuffer: float [@bs.optional];
+    killSignal: string [@bs.optional];
+    uid: int [@bs.optional];
+    gid: int [@bs.optional];
+    windowsHide: bool [@bs.optional];
+    windowsVerbatimOptions: bool [@bs.optional];
+    shell: string [@bs.optional]
+} [@@bs.deriving abstract]
 
 external execFile :
   string -> string array -> execFileOptions -> 'a callback -> unit = "" [@@bs.module "child_process"]
 
-let execFile ?cwd ?env ?encoding ?timeout ?maxBuffer ?killSignal ?uid ?gid ?windowsHide ?windowsVerbatimOptions ?shell cmd args cb =
-  let options = execFileOptions ?cwd ?env ?encoding ?timeout ?maxBuffer ?killSignal ?uid ?gid ?windowsHide ?windowsVerbatimOptions ?shell ()
+let execFile ?cwd ?env ?encoding ?timeout ?maxBuffer
+             ?killSignal ?uid ?gid ?windowsHide
+             ?windowsVerbatimOptions ?shell
+             cmd args cb =
+  let options =
+    execFileOptions ?cwd ?env ?encoding ?timeout ?maxBuffer
+                    ?killSignal ?uid ?gid ?windowsHide
+                    ?windowsVerbatimOptions ?shell ()
   in
   execFile cmd args options (fun [@bs] err stdout stderr ->
       cb err (stdout, stderr) [@bs])
 
-type spawned_io = <
-  stdin  : Stream.writable;
-  stdout : Stream.readable
-> Js.t
+type spawnOptions = {
+  spawnCwd:   string [@bs.optional] [@bs.as "cwd"];
+  spawnEnv:   string Js.Dict.t [@bs.optional] [@bs.as "env"];
+  spawnStdio: string array [@bs.optional] [@bs.as "stdio"]
+} [@@bs.deriving abstract]
 
-type spawn_params = <
-  stdio: string array
-> Js.t
+external spawn : string -> spawnOptions -> t = "" [@@bs.module "child_process"]
 
-external spawn : string -> string array -> spawn_params -> spawned_io = "" [@@bs.module "child_process"]
-
-let spawn cmd args =
-  let stdio =
-    [|"pipe";"pipe";"inherit"|]
+let spawn ?cwd ?env ?stdio cmd =
+  let spawnStdio =
+    match stdio with
+      | Some stdio ->
+          Some (stdioConfig stdio)
+      | None -> None
   in
-  let params = [%bs.obj{
-    stdio = stdio
-  }] in
-  spawn cmd args params
+  let options =
+    spawnOptions ?spawnCwd:cwd ?spawnEnv:env ?spawnStdio ()
+  in
+  spawn cmd options
+
+external stdin : t -> Stream.writable = "" [@@bs.val]
+external stdout : t -> Stream.readable = "" [@@bs.val]
+external stderr : t -> Stream.readable = "" [@@bs.val]
