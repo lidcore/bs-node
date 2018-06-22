@@ -83,8 +83,8 @@ function execFile(cwd, env, encoding, timeout, maxBuffer, killSignal, uid, gid, 
   return /* () */0;
 }
 
-function spawn(cwd, env, stdio, cmd) {
-  var spawnStdio = stdio ? /* Some */[stdioConfig$1(stdio[0])] : /* None */0;
+function spawn(cwd, env, stdio, shell, cmd) {
+  var stdio$1 = stdio ? /* Some */[stdioConfig$1(stdio[0])] : /* None */0;
   var tmp = { };
   if (cwd) {
     tmp.cwd = cwd[0];
@@ -92,8 +92,11 @@ function spawn(cwd, env, stdio, cmd) {
   if (env) {
     tmp.env = env[0];
   }
-  if (spawnStdio) {
-    tmp.stdio = spawnStdio[0];
+  if (stdio$1) {
+    tmp.stdio = stdio$1[0];
+  }
+  if (shell) {
+    tmp.shell = shell[0];
   }
   var options = tmp;
   return Child_process.spawn(cmd, options);

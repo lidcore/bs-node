@@ -63,22 +63,23 @@ let execFile ?cwd ?env ?encoding ?timeout ?maxBuffer
       cb err (stdout, stderr) [@bs])
 
 type spawnOptions = {
-  spawnCwd:   string [@bs.optional] [@bs.as "cwd"];
-  spawnEnv:   string Js.Dict.t [@bs.optional] [@bs.as "env"];
-  spawnStdio: string array [@bs.optional] [@bs.as "stdio"]
+  spawnCwd: string [@bs.optional] [@bs.as "cwd"];
+  spawnEnv: string Js.Dict.t [@bs.optional] [@bs.as "env"];
+  stdio:    string array [@bs.optional];
+  shell:     bool [@bs.optional]
 } [@@bs.deriving abstract]
 
 external spawn : string -> spawnOptions -> t = "" [@@bs.module "child_process"]
 
-let spawn ?cwd ?env ?stdio cmd =
-  let spawnStdio =
+let spawn ?cwd ?env ?stdio ?shell cmd =
+  let stdio =
     match stdio with
       | Some stdio ->
           Some (stdioConfig stdio)
       | None -> None
   in
   let options =
-    spawnOptions ?spawnCwd:cwd ?spawnEnv:env ?spawnStdio ()
+    spawnOptions ?spawnCwd:cwd ?spawnEnv:env ?stdio ?shell ()
   in
   spawn cmd options
 

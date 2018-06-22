@@ -21,7 +21,7 @@ val execFile : ?cwd:string -> ?env:string Js.Dict.t -> ?encoding:string -> ?time
                ?windowsHide:bool -> ?windowsVerbatimOptions:bool -> ?shell:string ->
                string -> string array -> (string*string) Callback.t
 
-val spawn : ?cwd:string -> ?env:string Js.Dict.t -> ?stdio:stdio -> string -> t
+val spawn : ?cwd:string -> ?env:string Js.Dict.t -> ?stdio:stdio -> ?shell:bool -> string -> t
 
 val stdin  : t -> Stream.writable
 val stdout : t -> Stream.readable
