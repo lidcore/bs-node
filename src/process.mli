@@ -1,15 +1,20 @@
-type signal = [
-  | `SIGINT
-  | `SIGTERM
-  | `SIGUSR1
-  | `SIGPIPE
-  | `SIGHUP
-  | `SIGBREAK
-  | `SIGWINCH
-  | `SIGSTOP
-  | `SIGBUS
-  | `SIGFPE
-  | `SIGSEV
+type event = [
+  | `UncaughtException of exn -> unit
+  | `SIGINT   of unit -> unit
+  | `SIGTERM  of unit -> unit
+  | `SIGUSR1  of unit -> unit
+  | `SIGPIPE  of unit -> unit
+  | `SIGHUP   of unit -> unit
+  | `SIGBREAK of unit -> unit
+  | `SIGWINCH of unit -> unit
+  | `SIGSTOP  of unit -> unit
+  | `SIGBUS   of unit -> unit
+  | `SIGFPE   of unit -> unit
+  | `SIGSEV   of unit -> unit
 ]
 
-val on : signal -> (unit -> unit) -> unit
+val argv : string array
+
+val exit : int -> 'a
+
+val on : event -> unit
