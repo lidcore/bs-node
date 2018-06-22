@@ -31,7 +31,9 @@ val unlinkSync : string -> unit
 val read : ?position:float -> ?offset:float -> ?length:float -> int -> Buffer.t -> (float*Buffer.t) Callback.t
 val readFile : string -> Buffer.t Callback.t
 val readFileSync : string -> Buffer.t
+val realpathSync : string -> string
 val write : ?position:float -> ?offset:float -> ?length:float -> int -> Buffer.t -> (float*Buffer.t) Callback.t
 val writeFile : string -> string -> unit Callback.t
+val writeFileSync : string -> string -> unit
 val rmdirSync : string -> unit
 val statSync : string -> stats

@@ -8,6 +8,15 @@ type 'a stdio_config = [
   | `Inherit of 'a
 ]
 
+type exit = [
+  | `Code of int
+  | `Signal of string
+]
+
+type event = [
+  | `Exit of (exit -> unit)
+]
+
 type stdio = {
   stdin:  Stream.readable stdio_config;
   stdout: Stream.writable stdio_config;
@@ -22,6 +31,8 @@ val execFile : ?cwd:string -> ?env:string Js.Dict.t -> ?encoding:string -> ?time
                string -> string array -> (string*string) Callback.t
 
 val spawn : ?cwd:string -> ?env:string Js.Dict.t -> ?stdio:stdio -> ?shell:bool -> string -> t
+
+val on : t -> event -> unit
 
 val stdin  : t -> Stream.writable
 val stdout : t -> Stream.readable

@@ -20,6 +20,15 @@ type stdio = {
 let stdioConfig {stdin;stdout;stderr} =
   [|stdioConfig stdin; stdioConfig stdout; stdioConfig stderr|]
 
+type exit = [
+  | `Code of int
+  | `Signal of string
+]
+
+type event = [
+  | `Exit of (exit -> unit)
+]
+
 type 'a callback = 'a -> string -> string -> unit [@bs]
 
 external exec : string -> 'a callback -> unit = "" [@@bs.module "child_process"]
@@ -82,6 +91,17 @@ let spawn ?cwd ?env ?stdio ?shell cmd =
     spawnOptions ?spawnCwd:cwd ?spawnEnv:env ?stdio ?shell ()
   in
   spawn cmd options
+
+external on : t -> string -> 'a -> unit = "" [@@bs.send]
+
+let on p event =
+  match event with
+    | `Exit fn ->
+        on p "exit" (fun [@bs] code signal ->
+          match Js.Nullable.toOption code, Js.Nullable.toOption signal with
+            | Some code, None -> fn (`Code code)
+            | None, Some signal -> fn (`Signal signal)
+            | _ -> assert false)
 
 external stdin : t -> Stream.writable = "" [@@bs.val]
 external stdout : t -> Stream.readable = "" [@@bs.val]

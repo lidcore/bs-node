@@ -104,8 +104,17 @@ function unlinkSync(prim) {
   return /* () */0;
 }
 
+function realpathSync(prim) {
+  return Fs.realpathSync(prim);
+}
+
 function writeFile(prim, prim$1, prim$2) {
   Fs.writeFile(prim, prim$1, prim$2);
+  return /* () */0;
+}
+
+function writeFileSync(prim, prim$1) {
+  Fs.writeFileSync(prim, prim$1);
   return /* () */0;
 }
 
@@ -128,8 +137,10 @@ exports.unlinkSync = unlinkSync;
 exports.read = read;
 exports.readFile = readFile;
 exports.readFileSync = readFileSync;
+exports.realpathSync = realpathSync;
 exports.write = write;
 exports.writeFile = writeFile;
+exports.writeFileSync = writeFileSync;
 exports.rmdirSync = rmdirSync;
 exports.statSync = statSync;
 /* fs Not a pure module */

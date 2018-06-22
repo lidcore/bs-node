@@ -39,8 +39,10 @@ type readFile_params = {
 
 external readFile : string -> readFile_params -> Buffer.t callback -> unit = "" [@@bs.module "fs"]
 external readFileSync : string -> readFile_params -> Buffer.t = "" [@@bs.module "fs"]
+external realpathSync : string -> string = "" [@@bs.module "fs"]
 external write : int -> Buffer.t -> float -> float -> float Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
 external writeFile : string -> string -> unit callback -> unit = "" [@@bs.module "fs"]
+external writeFileSync : string -> string -> unit = "" [@@bs.module "fs"]
 (* open is a keywork in OCaml.. *)
 external openFile : string -> string -> int callback -> unit = "open" [@@bs.module "fs"]
 external close : int -> unit callback -> unit = "" [@@bs.module "fs"]
