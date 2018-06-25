@@ -2,9 +2,31 @@
 'use strict';
 
 var Fs = require("fs");
+var List = require("bs-platform/lib/js/list.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var Js_null_undefined = require("bs-platform/lib/js/js_null_undefined.js");
 var Buffer$LidcoreBsNode = require("./buffer.js");
+
+function int_of_flag(param) {
+  if (param !== -131261590) {
+    if (param >= 952604760) {
+      return fs.constants.COPYFILE_FICLONE_FORCE;
+    } else {
+      return fs.constants.COPYFILE_FICLONE;
+    }
+  } else {
+    return fs.constants.COPYFILE_EXCL;
+  }
+}
+
+function copyFileSync($staropt$star, src, dst) {
+  var flags = $staropt$star ? $staropt$star[0] : /* [] */0;
+  var flag = List.fold_left((function (x, y) {
+          return x | int_of_flag(y);
+        }), 0, flags);
+  Fs.copyFileSync(src, dst, flag);
+  return /* () */0;
+}
 
 function read(position, $staropt$star, length, fd, buffer, cb) {
   var offset = $staropt$star ? $staropt$star[0] : 0;
@@ -78,11 +100,6 @@ function readFileSync(path) {
   return Fs.readFileSync(path, {
               flag: "r"
             });
-}
-
-function copyFileSync(prim, prim$1) {
-  Fs.copyFileSync(prim, prim$1);
-  return /* () */0;
 }
 
 function existsSync(prim) {

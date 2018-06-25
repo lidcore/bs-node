@@ -21,10 +21,32 @@ type stats = <
   birthtime:   Js.Date.t;
 > Js.t
 
+external copyfile_excl : int = "COPYFILE_EXCL" [@@bs.val]  [@@bs.scope "fs.constants"]
+external copyfile_ficlone : int = "COPYFILE_FICLONE" [@@bs.val]  [@@bs.scope "fs.constants"]
+external copyfile_ficlone_force : int = "COPYFILE_FICLONE_FORCE" [@@bs.val]  [@@bs.scope "fs.constants"]
+
+type flag = [
+  | `COPYFILE_EXCL
+  | `COPYFILE_FICLONE
+  | `COPYFILE_FICLONE_FORCE
+]
+
+let int_of_flag = function
+  | `COPYFILE_EXCL -> copyfile_excl
+  | `COPYFILE_FICLONE -> copyfile_ficlone
+  | `COPYFILE_FICLONE_FORCE -> copyfile_ficlone_force
+
 type stream_params
 external stream_params : ?fd:int -> ?autoClose:bool -> unit -> stream_params = "" [@@bs.obj]
 
-external copyFileSync : string -> string -> unit = "" [@@bs.module "fs"]
+external copyFileSync : string -> string -> int -> unit = "" [@@bs.module "fs"]
+
+let copyFileSync ?(flags=[]) src dst =
+  let flag = List.fold_left (fun x y ->
+    x lor int_of_flag y) 0 flags
+  in
+  copyFileSync src dst flag
+
 external createReadStream  : string Js.nullable -> stream_params -> Stream.readable = "" [@@bs.module "fs"]
 external createWriteStream : string Js.nullable -> stream_params -> Stream.writable = "" [@@bs.module "fs"]
 external existsSync : string -> bool = "" [@@bs.module "fs"]

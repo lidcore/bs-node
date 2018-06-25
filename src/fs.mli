@@ -21,7 +21,13 @@ type stats = <
   birthtime:   Js.Date.t;
 > Js.t
 
-val copyFileSync : string -> string -> unit
+type flag = [
+  | `COPYFILE_EXCL
+  | `COPYFILE_FICLONE
+  | `COPYFILE_FICLONE_FORCE
+]
+
+val copyFileSync : ?flags:flag list -> string -> string -> unit
 val createWriteStream : ?path:string -> ?fd:int -> ?autoClose:bool -> unit -> Stream.writable
 val createReadStream : ?path:string -> ?fd:int -> ?autoClose:bool -> unit -> Stream.readable
 val existsSync : string -> bool
