@@ -1,6 +1,6 @@
 open BsAsyncMonad
 
-type stats = <
+type stats = private {
   dev:         float;
   ino:         float;
   mode:        float;
@@ -19,7 +19,7 @@ type stats = <
   mtime:       Js.Date.t;
   ctime:       Js.Date.t;
   birthtime:   Js.Date.t;
-> Js.t
+} [@@bs.deriving abstract]
 
 type flag = [
   | `COPYFILE_EXCL
@@ -43,3 +43,4 @@ val writeFile : string -> string -> unit Callback.t
 val writeFileSync : string -> string -> unit
 val rmdirSync : string -> unit
 val statSync : string -> stats
+val isDirectory : stats -> bool

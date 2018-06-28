@@ -1,6 +1,6 @@
 open BsAsyncMonad.Callback
 
-type stats = <
+type stats = private {
   dev:         float;
   ino:         float;
   mode:        float;
@@ -19,7 +19,7 @@ type stats = <
   mtime:       Js.Date.t;
   ctime:       Js.Date.t;
   birthtime:   Js.Date.t;
-> Js.t
+} [@@bs.deriving abstract]
 
 external copyfile_excl : int = "COPYFILE_EXCL" [@@bs.val]  [@@bs.scope "fs.constants"]
 external copyfile_ficlone : int = "COPYFILE_FICLONE" [@@bs.val]  [@@bs.scope "fs.constants"]
@@ -111,4 +111,5 @@ let readFile path =
 let readFileSync path =
   readFileSync path (readFile_params ~flag:"r" ())
 
+external isDirectory : stats -> bool = "" [@@bs.send]
 external statSync : string -> stats = "" [@@bs.module "fs"]

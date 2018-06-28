@@ -144,6 +144,10 @@ function statSync(prim) {
   return Fs.statSync(prim);
 }
 
+function isDirectory(prim) {
+  return prim.isDirectory();
+}
+
 exports.copyFileSync = copyFileSync;
 exports.createWriteStream = createWriteStream;
 exports.createReadStream = createReadStream;
@@ -160,4 +164,5 @@ exports.writeFile = writeFile;
 exports.writeFileSync = writeFileSync;
 exports.rmdirSync = rmdirSync;
 exports.statSync = statSync;
+exports.isDirectory = isDirectory;
 /* fs Not a pure module */
