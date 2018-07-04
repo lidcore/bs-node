@@ -26,6 +26,7 @@ type exit = [
 ]
 
 type event = [
+  | `Error of (exn -> unit)
   | `Exit of (exit -> unit)
 ]
 
@@ -96,6 +97,9 @@ external on : t -> string -> 'a -> unit = "" [@@bs.send]
 
 let on p event =
   match event with
+    | `Error fn ->
+        on p "error" (fun [@bs] exn ->
+          fn exn)
     | `Exit fn ->
         on p "exit" (fun [@bs] code signal ->
           match Js.Nullable.toOption code, Js.Nullable.toOption signal with

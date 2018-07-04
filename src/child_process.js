@@ -105,41 +105,47 @@ function spawn(cwd, env, stdio, shell, cmd) {
 }
 
 function on(p, $$event) {
-  var fn = $$event[1];
-  p.on("exit", (function (code, signal) {
-          if (code == null) {
-            if (signal == null) {
+  if ($$event[0] >= 771171134) {
+    var fn = $$event[1];
+    p.on("exit", (function (code, signal) {
+            if (code == null) {
+              if (signal == null) {
+                throw [
+                      Caml_builtin_exceptions.assert_failure,
+                      [
+                        "child_process.ml",
+                        108,
+                        19
+                      ]
+                    ];
+              } else {
+                return Curry._1(fn, /* `Signal */[
+                            -384130424,
+                            signal
+                          ]);
+              }
+            } else if (signal == null) {
+              return Curry._1(fn, /* `Code */[
+                          748543309,
+                          code
+                        ]);
+            } else {
               throw [
                     Caml_builtin_exceptions.assert_failure,
                     [
                       "child_process.ml",
-                      104,
+                      108,
                       19
                     ]
                   ];
-            } else {
-              return Curry._1(fn, /* `Signal */[
-                          -384130424,
-                          signal
-                        ]);
             }
-          } else if (signal == null) {
-            return Curry._1(fn, /* `Code */[
-                        748543309,
-                        code
-                      ]);
-          } else {
-            throw [
-                  Caml_builtin_exceptions.assert_failure,
-                  [
-                    "child_process.ml",
-                    104,
-                    19
-                  ]
-                ];
-          }
-        }));
-  return /* () */0;
+          }));
+    return /* () */0;
+  } else {
+    var fn$1 = $$event[1];
+    p.on("error", Curry.__1(fn$1));
+    return /* () */0;
+  }
 }
 
 function stdin$1(prim) {

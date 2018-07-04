@@ -14,6 +14,7 @@ type exit = [
 ]
 
 type event = [
+  | `Error of (exn -> unit)
   | `Exit of (exit -> unit)
 ]
 
