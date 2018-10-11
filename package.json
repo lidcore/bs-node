@@ -1,6 +1,6 @@
 {
   "name": "@lidcore/bs-node",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Very partial Bindings to node for bucklescript applications",
   "main": "lib/js/src/node.js",
   "scripts": {
