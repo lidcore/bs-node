@@ -106,6 +106,6 @@ let on p = function
           | None, Some signal -> fn (`Signal signal)
           | _ -> assert false)
 
-external stdin : t -> Stream.writable = "" [@@bs.val]
-external stdout : t -> Stream.readable = "" [@@bs.val]
-external stderr : t -> Stream.readable = "" [@@bs.val]
+external stdin : t -> Stream.writable = "" [@@bs.get]
+external stdout : t -> Stream.readable = "" [@@bs.get]
+external stderr : t -> Stream.readable = "" [@@bs.get]

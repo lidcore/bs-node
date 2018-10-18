@@ -149,16 +149,16 @@ function on(p, param) {
   }
 }
 
-function stdin$1(prim) {
-  return stdin(prim);
+function stdin(prim) {
+  return prim.stdin;
 }
 
-function stdout$1(prim) {
-  return stdout(prim);
+function stdout(prim) {
+  return prim.stdout;
 }
 
-function stderr$1(prim) {
-  return stderr(prim);
+function stderr(prim) {
+  return prim.stderr;
 }
 
 exports.exec = exec;
@@ -166,7 +166,7 @@ exports.execSync = execSync;
 exports.execFile = execFile;
 exports.spawn = spawn;
 exports.on = on;
-exports.stdin = stdin$1;
-exports.stdout = stdout$1;
-exports.stderr = stderr$1;
+exports.stdin = stdin;
+exports.stdout = stdout;
+exports.stderr = stderr;
 /* child_process Not a pure module */
