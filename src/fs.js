@@ -11,12 +11,40 @@ var Buffer$LidcoreBsNode = require("./buffer.js");
 function int_of_flag(param) {
   if (param !== -131261590) {
     if (param >= 952604760) {
-      return fs.constants.COPYFILE_FICLONE_FORCE;
+      return Fs.constants.COPYFILE_FICLONE_FORCE;
     } else {
-      return fs.constants.COPYFILE_FICLONE;
+      return Fs.constants.COPYFILE_FICLONE;
     }
   } else {
-    return fs.constants.COPYFILE_EXCL;
+    return Fs.constants.COPYFILE_EXCL;
+  }
+}
+
+function int_of_access(param) {
+  if (param >= 969534276) {
+    if (param >= 980623843) {
+      return Fs.constants.X_OK;
+    } else {
+      return Fs.constants.W_OK;
+    }
+  } else if (param >= 914086441) {
+    return Fs.constants.R_OK;
+  } else {
+    return Fs.constants.F_OK;
+  }
+}
+
+function access($staropt$star, path, cb) {
+  var mode = $staropt$star !== undefined ? $staropt$star : /* [] */0;
+  if (mode === /* [] */0) {
+    Fs.access(path, cb);
+    return /* () */0;
+  } else {
+    var mode$1 = List.fold_left((function (x, y) {
+            return x | int_of_access(y);
+          }), 0, mode);
+    Fs.access(path, mode$1, cb);
+    return /* () */0;
   }
 }
 
@@ -149,6 +177,7 @@ function isDirectory(prim) {
   return prim.isDirectory();
 }
 
+exports.access = access;
 exports.copyFileSync = copyFileSync;
 exports.createWriteStream = createWriteStream;
 exports.createReadStream = createReadStream;

@@ -27,6 +27,14 @@ type flag = [
   | `COPYFILE_FICLONE_FORCE
 ]
 
+type access = [
+  | `F_OK
+  | `R_OK
+  | `W_OK
+  | `X_OK
+]
+
+val access : ?mode:access list -> string -> unit Callback.t
 val copyFileSync : ?flags:flag list -> string -> string -> unit
 val createWriteStream : ?path:string -> ?fd:int -> ?autoClose:bool -> unit -> Stream.writable
 val createReadStream : ?path:string -> ?fd:int -> ?autoClose:bool -> unit -> Stream.readable

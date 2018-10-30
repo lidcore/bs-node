@@ -21,9 +21,17 @@ type stats = private {
   birthtime:   Js.Date.t;
 } [@@bs.deriving abstract]
 
-external copyfile_excl : int = "COPYFILE_EXCL" [@@bs.val]  [@@bs.scope "fs.constants"]
-external copyfile_ficlone : int = "COPYFILE_FICLONE" [@@bs.val]  [@@bs.scope "fs.constants"]
-external copyfile_ficlone_force : int = "COPYFILE_FICLONE_FORCE" [@@bs.val]  [@@bs.scope "fs.constants"]
+type constants = {
+  copyfile_excl: int [@bs.as "COPYFILE_EXCL"];
+  copyfile_ficlone : int [@bs.as "COPYFILE_FICLONE"];
+  copyfile_ficlone_force : int [@bs.as "COPYFILE_FICLONE_FORCE"];
+  f_ok : int [@bs.as "F_OK"];
+  r_ok : int [@bs.as "R_OK"];
+  w_ok : int [@bs.as "W_OK"];
+  x_ok : int [@bs.as "X_OK"]
+} [@@bs.deriving abstract]
+
+external constants : constants  = "" [@@bs.module "fs"] 
 
 type flag = [
   | `COPYFILE_EXCL
@@ -32,12 +40,37 @@ type flag = [
 ]
 
 let int_of_flag = function
-  | `COPYFILE_EXCL -> copyfile_excl
-  | `COPYFILE_FICLONE -> copyfile_ficlone
-  | `COPYFILE_FICLONE_FORCE -> copyfile_ficlone_force
+  | `COPYFILE_EXCL -> copyfile_exclGet constants
+  | `COPYFILE_FICLONE -> copyfile_ficloneGet constants
+  | `COPYFILE_FICLONE_FORCE -> copyfile_ficlone_forceGet constants
+
+type access = [
+  | `F_OK
+  | `R_OK
+  | `W_OK
+  | `X_OK
+]
+
+let int_of_access = function
+  | `F_OK -> f_okGet constants
+  | `R_OK -> r_okGet constants
+  | `W_OK -> w_okGet constants
+  | `X_OK -> x_okGet constants
 
 type stream_params
 external stream_params : ?fd:int -> ?autoClose:bool -> unit -> stream_params = "" [@@bs.obj]
+
+external access : string -> unit callback -> unit = "" [@@bs.module "fs"]
+external accessWithMode : string -> int -> unit callback -> unit = "access" [@@bs.module "fs"]
+
+let access ?(mode=[]) path cb =
+  if mode = [] then
+    access path cb
+  else
+    let mode = List.fold_left (fun x y ->
+      x lor int_of_access y) 0 mode
+    in
+    accessWithMode path mode cb
 
 external copyFileSync : string -> string -> int -> unit = "" [@@bs.module "fs"]
 
